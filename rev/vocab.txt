@@ -1,0 +1,75 @@
+To
+Rook
+Knight
+Bishop
+Queen
+King
+Pawn
+A One
+A Two
+A Three
+A Four
+A Five
+A Six
+A Seven
+A Eight
+B One
+B Two
+B Three
+B Four
+B Five
+B Six
+B Seven
+B Eight
+C One
+C Two
+C Three
+C Four
+C Five
+C Six
+C Seven
+C Eight
+D One
+D Two
+D Three
+D Four
+D Five
+D Six
+D Seven
+D Eight
+E One
+E Two
+E Three
+E Four
+E Five
+E Six
+E Seven
+E Eight
+F One
+F Two
+F Three 
+F Four
+F Five
+F Six
+F Seven
+F Eight
+G One
+G Two
+G Three
+G Four
+G Five
+G Six
+G Seven
+G Eight
+H One
+H Two
+H Three
+H Four
+H Five
+H Six
+H Seven
+H Eight
+Captures
+Takes
+Castle Long
+Castle Short

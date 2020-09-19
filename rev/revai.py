@@ -1,10 +1,15 @@
 import pyaudio
 from rev_ai.models import MediaConfig
 from rev_ai.streamingclient import RevAiStreamingClient
+from rev_ai import custom_vocabularies_client
 from six.moves import queue
+import json
 
 ACCESS_TOKEN = '02iqVXp0raryjFYryUUdjBxprNH0eklGxcgpOCA6vppIhe_xev7gspbf5E0iymvCSRNwW-BA6wFPVjIO1yK0zrTBKyYYo'
 
+client = custom_vocabularies_client.RevAiCustomVocabulariesClient(ACCESS_TOKEN)
+custom_vocabularies_jobs = client.get_list_of_custom_vocabularies()
+vocab_id = custom_vocabularies_jobs[0]['id']
 
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
@@ -83,11 +88,16 @@ with MicrophoneStream(rate, chunk) as stream:
     # Uses try method to allow users to manually close the stream
     try:
         # Starts the server connection and thread sending microphone audio
-        response_gen = streamclient.start(stream.generator())
+        response_gen = streamclient.start(stream.generator(), custom_vocabulary_id=vocab_id)
 
         # Iterates through responses and prints them
         for response in response_gen:
-            print(response)
+            res = json.loads(response)
+            print(res)
+            if res["type"] == 'final':
+                for element in res["elements"]:
+                    if element["type"] == 'text':
+                        print(element['value'])
 
     except KeyboardInterrupt:
         # Ends the websocket connection.
