@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'AudioChessSite.example'
+    'apps.base',
+    'apps.notifications'
+
 ]
 
 MIDDLEWARE = [
@@ -57,19 +59,18 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             'hosts': [('localhost', 6379)],
         },
-        'ROUTING': 'AudioChessSite.example.routing.channel_routing',
+        'ROUTING': 'apps.notifications..routing.channel_routing',
     }
 }
 
-ASGI_APPLICATION = 'AudioChessSite.example.routing.application'
+ASGI_APPLICATION = 'apps.notifications.routing.application'
 
 ROOT_URLCONF = 'AudioChessSite.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite', 'templates')],
-        'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite/example/templates/example')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,5 +136,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR + '/AudioChessSite', "static"),
+    os.path.join(BASE_DIR, "static"),
 ]
