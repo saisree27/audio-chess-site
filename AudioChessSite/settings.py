@@ -69,7 +69,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite', 'templates')],
-        'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite/example/templates/example')],
+        'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite/templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
