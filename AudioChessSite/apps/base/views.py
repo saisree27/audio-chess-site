@@ -31,6 +31,10 @@ def login_request(request):
                     template_name = "login.html",
                     context={"form":form})
 
+def logout_request(request):
+    logout(request)
+    return redirect("/login")
+
 def register(request):
     print("plz workkkkk")
     if request.method == 'POST':
@@ -53,9 +57,6 @@ def register(request):
     return render(request = request,
                     template_name = "register.html",
                     context={"form":form})
-def logout_view(request):
-    logout(request)
-    return redirect("/")
 
 def index(request):
     if request.user.is_authenticated:

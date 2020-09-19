@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('login', views.login_request, name='login'),
+    path('logout/', views.logout_request, name='logout'),
     path('register', views.register, name='register'),
     path('testing', views.testing),
     path('about', views.about),
@@ -28,5 +29,4 @@ urlpatterns = [
     path('uttt', views.ultimate_ttt),
     path('ws/', views.user_list),
     path('upload', views.upload),
-    path('logout/', views.logout_view,name='logout'),
 ]
