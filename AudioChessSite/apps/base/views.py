@@ -13,7 +13,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect('/games')
+                return redirect('/')
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -35,7 +35,7 @@ def register(request):
             try:
                 match = User.objects.get(email=email)
                 messages.error(request, "An account with that email already exists!", extra_tags="danger")
-                return redirect("/games")
+                return redirect("/")
             except User.DoesNotExist:
                 form.save()
                 user = authenticate(username=username, password=password, email=email)
@@ -46,20 +46,17 @@ def register(request):
                     template_name = "register.html",
                     context={"form":form})
 
-def landing(request):
-    return render(request, "index.html", {})
-
-def home(request):
-    return render(request, "home.html", {})
+def index(request):
+    if request.user.is_authenticated:
+        return render(request, "games.html", {})
+    else:
+        return render(request, "index.html", {})
 
 def about(request):
     return render(request, "about.html", {})
 
 def preferences(request):
     return render(request, "preferences.html", {})
-
-def games(request):
-    return render(request, "games.html", {})
 
 def chess(request):
     return render(request, "chess.html", {})
@@ -68,5 +65,7 @@ def ultimate_ttt(request):
     return render(request, "ultimate-ttt.html", {})
 
 def user_list(request):
-    print("Hello World")
     return render(request, 'user_list.html')
+
+def testing(request):
+    return render(request, "testing.html", {})
