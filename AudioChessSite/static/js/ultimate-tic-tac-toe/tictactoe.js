@@ -1,4 +1,4 @@
-function TicTacToe(ai) {
+function TicTacToe() {
 	
 	// drawing variables
 	this.superFatPencil = new PencilFuzzy(12,10);
@@ -14,11 +14,7 @@ function TicTacToe(ai) {
 	
 	// the next board that the player has to play in, i.e. [0,0] = top left square
 	this.nextBoard = null; //[1,1]; 
-	
-	this.useAI = false;
-	
-	this.ai = ai;
-	
+			
 	this.state = 	
 	[
 		[[[0,0,0],[0,0,0],[0,0,0]], [[0,0,0],[0,0,0],[0,0,0]], [[0,0,0],[0,0,0],[0,0,0]]],
@@ -286,31 +282,6 @@ function TicTacToe(ai) {
 		}
 		return false;
 	} 
-	
-	this.toggleAI = function() {
-		this.useAI = !this.useAI;
-		if(this.useAI) {
-			$("#toggle_ai").attr("value", "A.I.");
-		} else {
-			$("#toggle_ai").attr("value", "Human");
-		}
-	}
-
-	this.aiGo = function() {
-		var move = this.ai.solve(this);
-		this.nextBoard = [move[0], move[1]];
-		this.go(move[2], move[3]);
-
-		if(!this.gameOver) {
-			$("#msg").html("");
-		}
-		this.switchTurns();		
-		// account for filled squares
-		if(this.nextBoard != null && this.isSubBoardFull(this.getCurrentSubBoard())) {
-			this.nextBoard = null;
-		}
-		this.highlightBoard();
-	}
 
 	this.handleInput = function(x, y) {
 		if(!this.gameOver) {
@@ -325,9 +296,6 @@ function TicTacToe(ai) {
 					$("#msg").html("");
 				}
 				this.switchTurns();
-				if(this.useAI && !this.gameOver) {
-					this.aiGo();
-				}
 			}
 		}
 	}
