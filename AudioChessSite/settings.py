@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    'AudioChessSite.example'
 ]
 
 MIDDLEWARE = [
@@ -49,12 +51,25 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+        'ROUTING': 'AudioChessSite.example.routing.channel_routing',
+    }
+}
+
+ASGI_APPLICATION = 'AudioChessSite.example.routing.application'
+
 ROOT_URLCONF = 'AudioChessSite.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite', 'templates')],
+        # 'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR + '/AudioChessSite/example/templates/example')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

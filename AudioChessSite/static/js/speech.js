@@ -1,0 +1,24 @@
+var ws_url = "wss://api.us-east.speech-to-text.watson.cloud.ibm.com/instances/9db65efc-6c9d-445b-b5cd-6d3614d5994e"
+
+var IAM_access_token = "eyJraWQiOiIyMDIwMDgyMzE4MzIiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJpYW0tU2VydmljZUlkLWVjYzFhMjI5LWIzODItNDZiYi1iZTY0LTI3YTExMzlmMmIyOCIsImlkIjoiaWFtLVNlcnZpY2VJZC1lY2MxYTIyOS1iMzgyLTQ2YmItYmU2NC0yN2ExMTM5ZjJiMjgiLCJyZWFsbWlkIjoiaWFtIiwianRpIjoiZTZlNWMwYmUtMzJmOS00Y2RlLWJiNjMtNTYxMDNiZWIyMTYyIiwiaWRlbnRpZmllciI6IlNlcnZpY2VJZC1lY2MxYTIyOS1iMzgyLTQ2YmItYmU2NC0yN2ExMTM5ZjJiMjgiLCJuYW1lIjoiQXV0by1nZW5lcmF0ZWQgc2VydmljZSBjcmVkZW50aWFscyIsInN1YiI6IlNlcnZpY2VJZC1lY2MxYTIyOS1iMzgyLTQ2YmItYmU2NC0yN2ExMTM5ZjJiMjgiLCJzdWJfdHlwZSI6IlNlcnZpY2VJZCIsInVuaXF1ZV9pbnN0YW5jZV9jcm5zIjpbImNybjp2MTpibHVlbWl4OnB1YmxpYzpzcGVlY2gtdG8tdGV4dDp1cy1zb3V0aDphLzZlMGIwYzVjOGM5ZDQzODg5Yjg3MjA5MDczYjgxMWNiOjFiZTk0NTg4LWMxMjUtNGEzYy1iMTE5LTRlMjAyZDJiMWQ1MDo6Il0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6IjZlMGIwYzVjOGM5ZDQzODg5Yjg3MjA5MDczYjgxMWNiIiwiZnJvemVuIjp0cnVlfSwiaWF0IjoxNjAwNTI4Mzg4LCJleHAiOjE2MDA1MzE5ODgsImlzcyI6Imh0dHBzOi8vaWFtLmNsb3VkLmlibS5jb20vaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJkZWZhdWx0IiwiYWNyIjoxLCJhbXIiOlsicHdkIl19.JGQYHhCahRmgEugHJSt9DAg-rVp0QbHQM6QR2-12dUWxDQt0UG5fCwcEhV3cok0Iy9VJz4cQgDiz1IdoCBEEz9jnWGPcCCnJMNfmsIMQjaNcSFv647pWmKPcxluRiK_jyjru8Mk6KKwnkWtExnHC37pRksD3-Ka94ppf43Do31AhNCKVwlHnSqxXpB4DrRBMlbTsq5TJjNOQo4ti-fwznzmAAVoDE85yRPZWmBZW4MUkd3wMluGvGVpGj0dy68aBM_g_mDJOIBc88Dmx9COhZj4R3NwEBeCUh_6q2eKNC91D-HJ5xg6s8w2n1stSHml5UvryqapxMXBW2YoGcTrTrg";
+var wsURI = ws_url + '/v1/recognize'
+  + '?access_token=' + IAM_access_token
+  + '&model=es-ES_BroadbandModel';
+var websocket = new WebSocket(wsURI);
+
+function printSomething() {
+  console.log("websocket gooo");
+
+  websocket.send()
+  console.log(wsURI);
+}
+
+websocket.onopen = function() {
+  websocket.send("ping")
+}
+websocket.onerror = function(e) {
+  websocket.send("ws error " + e)
+}
+websocket.onmessage = function(e) {
+  websocket.send("server: " + e.data);
+}

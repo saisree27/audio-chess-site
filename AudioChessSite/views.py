@@ -54,3 +54,7 @@ def home(request):
 
 def game(request):
     return render(request, "chess.html", {})
+
+def user_list(request):
+    print("Hello World")
+    return render(request, 'user_list.html')
