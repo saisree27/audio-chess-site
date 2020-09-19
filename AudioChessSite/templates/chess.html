@@ -113,6 +113,7 @@
                 $(window).resize(board.resize);
                 updateStatus();
             </script>
+            {% csrf_token %}
             <script src="{% static 'js/recording.js' %}"></script>
         </div>
     </div>
