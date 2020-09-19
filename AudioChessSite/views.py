@@ -32,5 +32,8 @@ def register(request):
 def home(request):
     return render(request, "home.html", {})
 
-def game(request):
+def chess(request):
     return render(request, "chess.html", {})
+
+def tictactoe(request):
+    return render(request, "ultimate-ttt.html", {})
