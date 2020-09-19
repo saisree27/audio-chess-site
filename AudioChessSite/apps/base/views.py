@@ -64,6 +64,9 @@ def games(request):
 def chess(request):
     return render(request, "chess.html", {})
 
+def ultimate_ttt(request):
+    return render(request, "ultimate-ttt.html", {})
+
 def user_list(request):
     print("Hello World")
     return render(request, 'user_list.html')
