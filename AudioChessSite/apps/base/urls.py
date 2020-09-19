@@ -26,5 +26,6 @@ urlpatterns = [
     path('preferences', views.preferences),
     path('chess', views.chess),
     path('uttt', views.ultimate_ttt),
-    path('ws/', views.user_list)
+    path('ws/', views.user_list),
+    path('upload', views.upload)
 ]
