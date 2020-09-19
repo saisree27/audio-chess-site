@@ -22,6 +22,9 @@ urlpatterns = [
     path('login', views.login_request, name='login'),
     path('register', views.register, name='register'),
     path('home', views.home),
-    path('game', views.game),
+    path('about', views.about),
+    path('preferences', views.preferences),
+    path('games', views.games),
+    path('chess', views.chess),
     path('ws/', views.user_list)
 ]

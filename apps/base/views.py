@@ -3,9 +3,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-def landing(request):
-    return render(request, "index.html", {})
-
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -49,10 +46,22 @@ def register(request):
                     template_name = "register.html",
                     context={"form":form})
 
+def landing(request):
+    return render(request, "index.html", {})
+
 def home(request):
     return render(request, "home.html", {})
 
-def game(request):
+def about(request):
+    return render(request, "about.html", {})
+
+def preferences(request):
+    return render(request, "preferences.html", {})
+
+def games(request):
+    return render(request, "games.html", {})
+
+def chess(request):
     return render(request, "chess.html", {})
 
 def user_list(request):
