@@ -10,6 +10,7 @@ def upload(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             print("Got file.")
+    
 
 def login_request(request):
     if request.method == 'POST':
