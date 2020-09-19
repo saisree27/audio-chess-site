@@ -54,7 +54,7 @@ def register(request):
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, "games.html", {})
+        return render(request, "home.html", {})
     else:
         return render(request, "index.html", {})
 
