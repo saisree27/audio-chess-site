@@ -2,7 +2,9 @@ h1 {
     color: red;
 }
 
+body, html {
+    height: 100%
+}
 
-/* .text-center {
-    margin-top: 250px;
+/* #description {
 } */
