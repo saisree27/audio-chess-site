@@ -13,9 +13,9 @@ websocket.onerror = function(evt) { onError(evt) };
 
 function onOpen(evt) {
     var message = {
-      action: 'start',
+      "action": 'start',
+      "content-type": 'audio/l16;rate=22050'
     };
     websocket.send(JSON.stringify(message));
   }
 
-  
