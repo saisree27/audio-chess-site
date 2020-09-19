@@ -13,7 +13,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect('/game')
+                return redirect('/games')
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -35,7 +35,7 @@ def register(request):
             try:
                 match = User.objects.get(email=email)
                 messages.error(request, "An account with that email already exists!", extra_tags="danger")
-                return redirect("/game")
+                return redirect("/games")
             except User.DoesNotExist:
                 form.save()
                 user = authenticate(username=username, password=password, email=email)
