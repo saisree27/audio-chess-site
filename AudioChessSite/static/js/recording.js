@@ -15,11 +15,11 @@ navigator.mediaDevices.getUserMedia({
     //     recorder.resumeRecording();
     // }, 5000);
     const sleep = m => new Promise(r => setTimeout(r, m));
-    await sleep(15000);
+    await sleep(5000);
 
     recorder.stopRecording(function() {
         let blob = recorder.getBlob();
-        invokeSaveAsDialog(blob);
+        // invokeSaveAsDialog(blob);
         
         var csrfToken = '{{ csrf_token }}';
         console.log(csrfToken);
