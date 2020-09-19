@@ -33,4 +33,4 @@ def home(request):
     return render(request, "home.html", {})
 
 def game(request):
-    return render(request, "chess.html", {})
+    return render(request, "othello.html", {})
