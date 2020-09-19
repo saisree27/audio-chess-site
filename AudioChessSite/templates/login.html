@@ -34,52 +34,112 @@
 					<img src="{% static 'img/breakaway_water_gamers.png' %}" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form">
-					<span class="login100-form-title">
+{#				<form method="post" action="{% url 'login' %}">#}
+{#                    {% csrf_token %}#}
+{#					<span class="login100-form-title">#}
+{#						AudioBoard Login#}
+{#					</span>#}
+{##}
+{#					<div class="wrap-input100">#}
+{#						<input class="input100" type="text" name="email" placeholder="Email">#}
+{#						<span class="focus-input100"></span>#}
+{#						<span class="symbol-input100">#}
+{#							<i class="fa fa-envelope" aria-hidden="true"></i>#}
+{#						</span>#}
+{#					</div>#}
+{##}
+{#					<div class="wrap-input100 validate-input" data-validate = "Password is required">#}
+{#						<input class="input100" type="password" name="pass" placeholder="Password">#}
+{#						<span class="focus-input100"></span>#}
+{#						<span class="symbol-input100">#}
+{#							<i class="fa fa-lock" aria-hidden="true"></i>#}
+{#						</span>#}
+{#					</div>#}
+{##}
+{#					<div class="container-login100-form-btn">#}
+{#						<button class="login100-form-btn">#}
+{#							Login#}
+{#						</button>#}
+{#					</div>#}
+{##}
+{#					<div class="text-center p-t-12">#}
+{#						<span class="txt1">#}
+{#							Forgot#}
+{#						</span>#}
+{#						<a class="txt2" href="#">#}
+{#							Username / Password?#}
+{#						</a>#}
+{#					</div>#}
+{##}
+{#					<div class="text-center p-t-136">#}
+{#						<a class="txt2" href="/register">#}
+{#							Create your Account#}
+{#							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>#}
+{#						</a>#}
+{#					</div>#}
+{#				</form>#}
+
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <span class="login100-form-title">
 						AudioBoard Login
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email">
-						<span class="focus-input100"></span>
+                    <div class="wrap-input100">
+                        <input class="input100" type="text" name="username" placeholder="Username">
+                        <span class="focus-input100"></span>
 						<span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
+							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
-					</div>
+                    </div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
-						<span class="focus-input100"></span>
+                    <div class="wrap-input100">
+                        <input class="input100" type="password" name="password" placeholder="Password">
+                        <span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Login
-						</button>
-					</div>
+                    </div>
+                    <br>
 
-					<div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
-						<a class="txt2" href="#">
-							Username / Password?
-						</a>
-					</div>
+                    <input class="login100-form-btn" type="submit" name="" value="Login">
 
-					<div class="text-center p-t-136">
-						<a class="txt2" href="/register">
-							Create your Account
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
-				</form>
+                    <div class="text-center p-t-136">
+                        <a class="txt2" href="/register">
+                            Create your Account
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
 			</div>
 		</div>
 	</div>
+
+    {#                <form method="post">#}
+{#                    {% csrf_token %}#}
+{#                    {{ form.non_field_errors }}#}
+{#                    <div>#}
+{#                        {{ form.username.errors }}#}
+{#                        <label for="{{ form.username.id_for_label }}">Username:</label>#}
+{#                        {{ form.username }}#}
+{#                    </div>#}
+{#                    <div>#}
+{#                        {{ form.password.errors }}#}
+{#                        <label for="{{ form.password.id_for_label }}">Password:</label>#}
+{#                        {{ form.password }}#}
+{#                    </div>#}
+{#                    <button type="submit">Login</button>#}
+{#                </form>#}
+
+{#                <form method="post" action="{% url 'login' %}">#}
+{#                    {% csrf_token %}#}
+                    {# A more "HTML" way of creating the login form#}
+{#                    <label for="username">Username:</label>#}
+{#                    <input type="text" name="username" placeholder="Username">#}
+{#                    <label for="password">Password:</label>#}
+{#                    <input type="password" name="password" placeholder="Password">#}
+{#                    <input type="submit" name="" value="Login">#}
+{#                </form>#}
 	
 	
 
