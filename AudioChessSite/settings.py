@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels'
+    'channels',
+    'AudioChessSite.example'
 ]
 
 MIDDLEWARE = [
@@ -56,11 +57,11 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             'hosts': [('localhost', 6379)],
         },
-        'ROUTING': 'example.routing.channel_routing',
+        'ROUTING': 'AudioChessSite.example.routing.channel_routing',
     }
 }
 
-ASGI_APPLICATION = 'example.routing.application'
+ASGI_APPLICATION = 'AudioChessSite.example.routing.application'
 
 ROOT_URLCONF = 'AudioChessSite.urls'
 
