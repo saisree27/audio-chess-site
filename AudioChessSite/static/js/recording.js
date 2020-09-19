@@ -20,5 +20,12 @@ navigator.mediaDevices.getUserMedia({
     recorder.stopRecording(function() {
         let blob = recorder.getBlob();
         invokeSaveAsDialog(blob);
+
+        let fd = new FormData;
+        fd.append("audioRecording", blob);
+        fetch("/upload", {method:"POST", body:fd})
+        .then(response => response.ok)
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
     });
 });
