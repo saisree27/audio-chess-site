@@ -27,5 +27,6 @@ urlpatterns = [
     path('chess', views.chess),
     path('uttt', views.ultimate_ttt),
     path('ws/', views.user_list),
-    path('upload', views.upload)
+    path('upload', views.upload),
+    path('logout/', views.logout_view,name='logout'),
 ]

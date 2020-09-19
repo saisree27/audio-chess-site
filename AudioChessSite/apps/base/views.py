@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import UploadFileForm
-
+from django.contrib.auth import logout
 
 def upload(request):
     if request.method == 'POST':
@@ -53,6 +53,9 @@ def register(request):
     return render(request = request,
                     template_name = "register.html",
                     context={"form":form})
+def logout_view(request):
+    logout(request)
+    return redirect("/")
 
 def index(request):
     if request.user.is_authenticated:
@@ -74,6 +77,7 @@ def ultimate_ttt(request):
 
 def user_list(request):
     return render(request, 'user_list.html')
+
 
 def testing(request):
     return render(request, "testing.html", {})
