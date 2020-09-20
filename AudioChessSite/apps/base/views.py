@@ -1,14 +1,10 @@
 from django import forms
+from .forms import UploadFileForm
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
-import random
-from ..auth import User
-from ..gamestate import GameState
-from .forms import UploadFileForm
 
 class GameCreationForm(forms.Form):
     username1 = forms.CharField(label="Your Username", max_length = 32)
@@ -20,7 +16,6 @@ def upload(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             print("Got file.")
-    
 
 def login_request(request):
     if request.method == 'POST':
@@ -74,40 +69,6 @@ def index(request):
         return render(request, "home.html", {})
     else:
         return render(request, "index.html", {})
-
-def create_game(request):
-    if request.method == 'POST':
-        form = GameCreationForm(request.POST)
-        if form.is_valid():
-            username1 = form.cleaned_data.get('username1')
-            username2 = form.cleaned_data.get('username2')
-            game_type = form.cleaned_data.get('gametype')
-            player_one = User.objects.filter(username=username1)
-            player_two = User.objects.filter(username=username2)
-
-            if game_type == 'chess':
-                game_board = ' ' * 64  # flattened chess board
-            else:
-                game_board = ' ' * 81  # flattened tic tac toe board
-
-            random_id = ''.join(random.choice('0123456789') for i in range(16))
-            while GameState.objects.filter(id=k):
-                random_id = ''.join(random.choice('0123456789') for i in range(16))
-
-            game_state = GameState(game_board=game_board, id=random_id, game_type=game_type, player_one=player_one,
-                                  player_two=player_two, current_turn=request.user)
-
-            game_state.save()
-            user = request.user
-            user.gamestate = game_state
-            user.save()
-            if game_type == 'chess':
-                return redirect('/chess')
-            else:
-                return redirect('/uttt')
-    else:
-        form = GameCreationForm()
-    return render(request, "home.html", {'form': form})
 
 def about(request):
     return render(request, "about.html", {})
