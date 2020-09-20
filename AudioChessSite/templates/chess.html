@@ -114,7 +114,8 @@
                 updateStatus();
             </script>
             {% csrf_token %}
-            <script type="text/javascript">
+            <script src="{% static 'js/chessListener.js' %}"></script>
+            <!-- <script type="text/javascript">
                 navigator.mediaDevices.getUserMedia({
                     video: false,
                     audio: true
@@ -149,7 +150,7 @@
                         .catch(err => console.error(err));
                     });
                 });
-            </script>
+            </script> -->
         </div>
     </div>
 </body>
