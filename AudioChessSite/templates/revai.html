@@ -1,0 +1,14 @@
+{% load static %}
+
+<html>
+    <head>
+        <script src="{% static 'js/revai.js' %}"></script>
+    </head>
+    <body>
+        <p>Rev.ai Browser Streaming Example</p>
+        <button id="streamButton" onclick="doStream()">Record</button>
+        <p id="status">Not Started</p>
+        <table id="messages"></table>
+    </body>
+</html>
+
