@@ -109,6 +109,7 @@ function TicTacToe(ai) {
 	this.getLocalCoord = function(x, y) {
 		var w = $("#board").width() / 3;
 		var h = $("#board").height() / 3;
+		// Current Board
 		if(this.nextBoard == null) {
 			this.nextBoard = [
 				parseInt(x / w),
@@ -119,8 +120,68 @@ function TicTacToe(ai) {
 		var x0 = this.nextBoard[0]*w;
 		var y0 = this.nextBoard[1]*h;
 		var lx = parseInt((x-x0) / w * 3);
+		console.log(x-x0)
 		var ly = parseInt((y-y0) / h * 3);
+		console.log(y-y0)
 		return [lx, ly];
+	}
+
+	this.parseVoiceInput = function(input) {
+		var xVoice;
+		var yVoice;
+
+		// Finds Next Board from Input
+		if (input.includes('top left')) this.message = 'topleft';
+		if (input.includes('top middle')) this.message = 'topmiddle';
+		if (input.includes('top right')) this.message = 'topbottom';
+		if (input.includes('center left')) this.message = 'centerleft';
+		if (input.includes('center middle')) this.message = 'centermiddle';
+		if (input.includes('center right')) this.message = 'centerright';
+		if (input.includes('bottom left')) this.message = 'bottomleft';
+		if (input.includes('bottom middle')) this.message = 'bottommiddle';
+		if (input.includes('bottom right')) this.message = 'bottomright';
+
+		if ((this.message) === 'topleft') {
+			console.log(this.message)
+			console.log(this.state)
+			xVoice = 35;
+			yVoice = 35;
+			this.go(xVoice, yVoice);
+			return true;
+		}
+		if ((this.message) === 'topmiddle') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		if ((this.message) === 'topbottom') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		if ((this.message) === 'centerleft') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		if ((this.message) === 'centermiddle') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		if ((this.message) === 'centerright') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		if ((this.message) === 'bottomleft') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		if ((this.message) === 'bottommiddle') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		if ((this.message) === 'bottomright') {
+			xVoice = 35;
+			yVoice = 35;
+		}
+		return true;
 	}
 	
 	this.clickedEmptySpace = function(x, y) {
@@ -163,6 +224,7 @@ function TicTacToe(ai) {
 		}
 		this.handleWins(this.nextBoard[0], this.nextBoard[1], 1);
 		this.handleWins(this.nextBoard[0], this.nextBoard[1], 2);
+		// Next Board
 		this.nextBoard = [lx, ly];
 	}
 	
@@ -270,7 +332,6 @@ function TicTacToe(ai) {
 	}
 	
 	this.move = function(x, y) {
-		// alert(x + " " + y);
 		if(this.clickedValidBoard(x, y)) {
 			if(this.clickedEmptySpace(x, y)) {
 				var lxy = this.getLocalCoord(x, y);
@@ -352,4 +413,125 @@ function TicTacToe(ai) {
 		board.handleClick(targetEvent);
 	});
 	
+}
+
+/**
+ * Begins a stream with rev.ai using the AudioContext from the browser. Stream will continue until the websocket 
+ * connection is closed. Follows the protocol specficied in our documentation:
+ * https://www.rev.ai/docs/streaming
+ */
+function doStream() {
+    statusElement = document.getElementById("status");
+    tableElement = document.getElementById("messages");
+    finalsReceived = 0;
+    currentCell = null;
+    audioContext = new (window.AudioContext || window.WebkitAudioContext)();
+
+    const access_token = '02hKmT-jKjN1Hg0zKbUlqNQfQxXw5xQinU38K69uVaQjYKRtrIYUBoU2rb9YdyEuM7ITkfuxP1xvxR1NgIE1gunjfZe7s';
+    const custom_vocab_id = 'cvut4JlOBZ5ofT'
+    const content_type = `audio/x-raw;layout=interleaved;rate=${audioContext.sampleRate};format=S16LE;channels=1`;
+    const baseUrl = 'wss://api.rev.ai/speechtotext/v1alpha/stream';
+    const query = `access_token=${access_token}&content_type=${content_type}&custom_vocabulary_id=${custom_vocab_id}`;
+    websocket = new WebSocket(`${baseUrl}?${query}`);
+
+    websocket.onopen = onOpen;
+    websocket.onclose = onClose;
+    websocket.onmessage = onMessage;
+    websocket.onerror = console.error;
+}
+
+/**
+ * Gracefully ends the streaming connection with rev.ai. Signals and end of stream before closing and closes the 
+ * browser's AudioContext
+ */
+function endStream() {
+    if (websocket) {
+        websocket.send("EOS");
+        websocket.close();
+    }
+    if (audioContext) {
+        audioContext.close();
+    }
+}
+
+/**
+ * Updates the display and creates the link from the AudioContext and the websocket connection to rev.ai
+ * @param {Event} event 
+ */
+function onOpen(event) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((micStream) => {
+        audioContext.suspend();
+        var scriptNode = audioContext.createScriptProcessor(4096, 1, 1 );
+        var input = input = audioContext.createMediaStreamSource(micStream);
+        scriptNode.addEventListener('audioprocess', (event) => processAudioEvent(event));
+        input.connect(scriptNode);
+        scriptNode.connect(audioContext.destination);
+        audioContext.resume();
+    });
+}
+
+/**
+ * Displays the close reason and code on the webpage
+ * @param {CloseEvent} event
+ */
+function onClose(event) {
+}
+
+/**
+ * Handles messages received from the API according to our protocol
+ * https://www.rev.ai/docs/streaming#section/Rev.ai-to-Client-Response
+ * @param {MessageEvent} event
+ */
+function onMessage(event) {
+    var data = JSON.parse(event.data);
+    switch (data.type){
+        case "connected":
+            console.log(`Connected, job id is ${data.id}`);
+            break;
+        case "partial":
+            break;
+        case "final":
+            message = parseResponse(data);
+            if (data.type == "final"){
+				ttt.parseVoiceInput(message.toLowerCase())
+            }
+            break;
+        default:
+            // We expect all messages from the API to be one of these types
+            console.error("Received unexpected message");
+            break;
+    }
+}
+
+/**
+ * Transform an audio processing event into a form suitable to be sent to the API. (S16LE or Signed 16 bit Little Edian).
+ * Then send.
+ * @param {AudioProcessingEvent} e 
+ */
+function processAudioEvent(e) {
+    if (audioContext.state === 'suspended' || audioContext.state === 'closed' || !websocket) {
+        return;
+    }
+
+    let inputData = e.inputBuffer.getChannelData(0);
+
+    // The samples are floats in range [-1, 1]. Convert to PCM16le.
+    let output = new DataView(new ArrayBuffer(inputData.length * 2));
+    for (let i = 0; i < inputData.length; i++) {
+        let multiplier = inputData[i] < 0 ? 0x8000 : 0x7fff; // 16-bit signed range is -32768 to 32767
+        output.setInt16(i * 2, inputData[i] * multiplier | 0, true); // index, value, little edian
+    }
+
+    let intData = new Int16Array(output.buffer);
+    let index = intData.length;
+    while (index-- && intData[index] === 0 && index > 0) { }
+    websocket.send(intData.slice(0, index + 1));
+}
+
+function parseResponse(response) {
+    var message = "";
+    for (var i = 0; i < response.elements.length; i++){
+        message += response.type == "final" ?  response.elements[i].value : `${response.elements[i].value} `;
+    }
+    return message;
 }
