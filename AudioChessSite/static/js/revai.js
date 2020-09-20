@@ -11,7 +11,7 @@ function doStream() {
     audioContext = new (window.AudioContext || window.WebkitAudioContext)();
 
     const access_token = '02hKmT-jKjN1Hg0zKbUlqNQfQxXw5xQinU38K69uVaQjYKRtrIYUBoU2rb9YdyEuM7ITkfuxP1xvxR1NgIE1gunjfZe7s';
-    const custom_vocab_id = cvHmKLl47ROpcR
+    const custom_vocab_id = 'cvut4JlOBZ5ofT'
     const content_type = `audio/x-raw;layout=interleaved;rate=${audioContext.sampleRate};format=S16LE;channels=1`;
     const baseUrl = 'wss://api.rev.ai/speechtotext/v1alpha/stream';
     const query = `access_token=${access_token}&content_type=${content_type}&custom_vocabulary_id=${custom_vocab_id}`;
