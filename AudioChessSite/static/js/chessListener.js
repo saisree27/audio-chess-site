@@ -87,6 +87,8 @@ function onMessage(event) {
             break;
         case "partial":
             currentCell.innerHTML = parseResponse(data);
+            messageHistory += parseResponse(data);
+            console.log(messageHistory);
             break;
         case "final":
             messageHistory += parseResponse(data);
