@@ -86,4 +86,4 @@ def user_list(request):
     return render(request, 'user_list.html')
 
 def testing(request):
-    return render(request, "testing.html", {})
+    return render(request, "revai.html", {})
