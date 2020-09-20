@@ -10,7 +10,7 @@ function doStream() {
     currentCell = null;
     audioContext = new (window.AudioContext || window.WebkitAudioContext)();
 
-    const access_token = '02iqVXp0raryjFYryUUdjBxprNH0eklGxcgpOCA6vppIhe_xev7gspbf5E0iymvCSRNwW-BA6wFPVjIO1yK0zrTBKyYYo';
+    const access_token = '02hKmT-jKjN1Hg0zKbUlqNQfQxXw5xQinU38K69uVaQjYKRtrIYUBoU2rb9YdyEuM7ITkfuxP1xvxR1NgIE1gunjfZe7s';
     const custom_vocab_id = cvHmKLl47ROpcR
     const content_type = `audio/x-raw;layout=interleaved;rate=${audioContext.sampleRate};format=S16LE;channels=1`;
     const baseUrl = 'wss://api.rev.ai/speechtotext/v1alpha/stream';
