@@ -10,7 +10,7 @@
   {% include 'meta.html' %}
 
   {% block css%}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/landing.css' %}">
   <link rel="stylesheet" href="{% static 'css/vendor/bootstrap.min.css' %}">
   {% endblock %}
 
@@ -18,14 +18,18 @@
 
 <body>
 
-  <div class="container h-100 text-center">
-    <div class="row h-100 justify-content-center align-items-center">
-      <div class="col">
-        <h1>AudioBoard</h1>
-        <a class="btn btn-primary btn-lg" href="/login" role="button">Login</a>
-        <a class="btn btn-primary btn-lg" href="/register" role="button">Register</a>
-        <span class="row-3"><p>Board games for everyone</p></span>
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-pic js-tilt" data-tilt>
+        <img src="{% static 'img/breakaway_water_gamers.png' %}" alt="IMG">
       </div>
+      <form class="login100-form">
+        <h1>AudioBoard</h1>
+        <span class="row-3"><p>Have you ever wanted to play a classic board game with nothing more than your voice? Try out AudioBoard!</p></span>
+        <a class="login100-form-btn" href="/login" role="button">Login</a>
+        <br>
+        <a class="login100-form-btn" href="/register" role="button">Register</a>
+      </form>
     </div>
     <div class="row-4">
     </div>
