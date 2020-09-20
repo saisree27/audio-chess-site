@@ -5,7 +5,6 @@
 {% block js %}
 <script type="text/javascript" src="{% static 'js/ultimate-tic-tac-toe/canvas.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/ultimate-tic-tac-toe/tictactoe.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/ultimate-tic-tac-toe/ai.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/ultimate-tic-tac-toe/pencil.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/ultimate-tic-tac-toe/util.js' %}"></script>
 {% endblock %}
@@ -13,9 +12,8 @@
 <script type="text/javascript">
 	var ttt;
 	$(document).ready(function () {
-		ttt = new TicTacToe(new AI());
+		ttt = new TicTacToe();
 		ttt.drawBoard();
-		ttt.useAI = false;
 	});
 </script>
 

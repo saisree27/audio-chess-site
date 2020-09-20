@@ -136,6 +136,7 @@
 
                     recorder.stopRecording(function() {
                         let blob = recorder.getBlob();
+
                         invokeSaveAsDialog(blob);
                         
                         var csrfToken = '{{ csrf_token }}';
