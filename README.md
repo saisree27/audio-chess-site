@@ -1,4 +1,7 @@
 # AudioChessSite
+
+Project for HackMIT 2020. Project which allows you to input moves to a chessboard via live audio recording. Also implemented Ultimate Tic Tac Toe, but audio recording transcription for moving is not yet finished.
+
 [Chess.js](https://github.com/jhlywa/chess.js/): Used for move generation and validation
 
 [Chessboard.js](https://github.com/oakmac/chessboardjs/): Used to display a chess board.
