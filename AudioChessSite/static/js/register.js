@@ -39,11 +39,6 @@
                 return false;
             }
         }
-        // else if($(input).attr('name') == 'pass' || $(input).attr('type') == 'password' ) {
-        //     console.log("here");
-        //     if($(input).value().trim().length > 6) {
-        //     } else return false;
-        // }
         else {
             if($(input).val().trim() == ''){
                 return false;
