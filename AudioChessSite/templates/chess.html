@@ -161,6 +161,7 @@
                 var pieceToMove = "";
                 var squareToMove = "";
                 var capturing = "";
+                var pawnFileFrom = "";
                 var castling = false;
                 var castlingKingside = false;
                 var castlingQueenside = false;
@@ -253,11 +254,15 @@
                         if(pieceToMove == 'P') {
                             game.move(squareToMove, {sloppy: true});
                         }
+                        if(pieceToMove == 'P' && capturing) {
+                            game.move(pawnFileFrom + "x" + squareToMove);
+                        }
                         board.position(game.fen());
                         updateStatus();
                         capturing = "";
                         pieceToMove = "";
                         squareToMove = "";
+                        pawnFileFrom = "";
                         castling = false;
                         castlingQueenside = false;
                         castlingKingside = false;
@@ -281,6 +286,16 @@
                                 game.move(game.moves()[0]);
                                 board.position(game.fen());
                                 updateStatus();
+                            }
+                            if(pieceToMove == "P" && pawnFileFrom === "") {
+                                if(partial.includes("a"))  pawnFileFrom = "a";
+                                else if(partial.includes("b"))  pawnFileFrom = "b";
+                                else if(partial.includes("c"))  pawnFileFrom = "c";
+                                else if(partial.includes("d"))  pawnFileFrom = "d";
+                                else if(partial.includes("e") || partial.includes("he"))  pawnFileFrom = "e";
+                                else if(partial.includes("f"))  pawnFileFrom = "f";
+                                else if(partial.includes("g"))  pawnFileFrom = "g";
+                                else if(partial.includes("h"))  pawnFileFrom = "h";
                             }
                             if(partial.includes("takes")) capturing = "x";
                             if(partial.includes("castle")) castling = true;
@@ -368,6 +383,8 @@
                             console.log("Castling:" + castling );
                             console.log("Castling kingside:" + castlingKingside);
                             console.log("Castling queenside:" + castlingQueenside);
+                            console.log("Pawn file from: " + pawnFileFrom);
+
                             currentCell.innerHTML = parseResponse(data);
                             messageHistory += parseResponse(data);
                             console.log(messageHistory);
