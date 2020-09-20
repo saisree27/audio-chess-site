@@ -158,6 +158,9 @@
                  * https://www.rev.ai/docs/streaming
                  */
                 var messageHistory = "";
+                var pieceToMove = "";
+                var squareToMove = "";
+                var capturing = "";
 
                 function doStream() {
                     // statusElement = document.getElementById("status");
@@ -234,6 +237,15 @@
                  * @param {MessageEvent} event
                  */
                 function onMessage(event) {
+                    if(pieceToMove != "" && squareToMove != "") {
+                        console.log("making move");
+                        game.move(pieceToMove+capturing+squareToMove, {sloppy: true});
+                        if(pieceToMove == 'P') {
+                            game.move(squareToMove, {sloppy: true});
+                        }
+                        board.position(game.fen());
+                        updateStatus();
+                    }
                     // if (messageHistory.includes("win")) {
                     //     console.log("here")
                     //     game.move(game.moves()[0]);
@@ -246,13 +258,96 @@
                             messageHistory =`Connected, job id is ${data.id}`;
                             break;
                         case "partial":
-                            var partial = parseResponse(data);
+                            var partial = parseResponse(data).toLowerCase();
+                            console.log("Partial is " + partial);
                             if(partial.includes("hello")) {
                                 console.log("here")
                                 game.move(game.moves()[0]);
                                 board.position(game.fen());
                                 updateStatus();
                             }
+                            if(partial.includes("takes")) capturing = "x";
+                            if(partial.includes("rook") || partial.includes("brook")) pieceToMove = "R";
+                            if(partial.includes("bishop")) pieceToMove = "B";
+                            if(partial.includes("queen")) pieceToMove = "Q";
+                            if(partial.includes("king") || partial.includes("can")) pieceToMove = "K";
+                            if(partial.includes("pawn")) pieceToMove = "P";
+                            if(partial.includes("night") || partial.includes("height")) pieceToMove = "N";
+
+                            if(partial.includes("a one") || partial.includes("anyone")) squareToMove = "a1";
+                            if(partial.includes("a two") || partial.includes("82")) squareToMove = "a2";
+                            if(partial.includes("a three") || partial.includes("83")) squareToMove = "a3";
+                            if(partial.includes("a four") || partial.includes("84")) squareToMove = "a4";
+                            if(partial.includes("a five") || partial.includes("85")) squareToMove = "a5";
+                            if(partial.includes("a six") || partial.includes("86") || partial.includes("asics")) squareToMove = "a6";
+                            if(partial.includes("a seven") || partial.includes("87")) squareToMove = "a7";
+                            if(partial.includes("a eight")) squareToMove = "a8";
+
+                            if(partial.includes("b one")) squareToMove = "b1";
+                            if(partial.includes("b two") || partial.includes("me too") || partial.includes("B too")) squareToMove = "b2";
+                            if(partial.includes("b three") || partial.includes("b3")) squareToMove = "b3";
+                            if(partial.includes("b four") || partial.includes("before")) squareToMove = "b4";
+                            if(partial.includes("b five") || partial.includes("beat five")) squareToMove = "b5";
+                            if(partial.includes("b six") || partial.includes("basics")) squareToMove = "b6";
+                            if(partial.includes("b seven")) squareToMove = "b7";
+                            if(partial.includes("b eight") || partial.includes("Be a") || partial.includes("B H")) squareToMove = "b8";
+
+                            if(partial.includes("c one")) squareToMove = "c1";
+                            if(partial.includes("c two")) squareToMove = "c2";
+                            if(partial.includes("c three") || partial.includes("scene three") || partial.includes("Say three")) squareToMove = "c3";
+                            if(partial.includes("c four")) squareToMove = "c4";
+                            if(partial.includes("c five") || partial.includes("si")) squareToMove = "c5";
+                            if(partial.includes("c six")) squareToMove = "c6";
+                            if(partial.includes("c seven")) squareToMove = "c7";
+                            if(partial.includes("c eight")) squareToMove = "c8";
+
+                            if(partial.includes("d one")) squareToMove = "d1";
+                            if(partial.includes("d two")) squareToMove = "d2";
+                            if(partial.includes("d three")) squareToMove = "d3";
+                            if(partial.includes("d four")) squareToMove = "d4";
+                            if(partial.includes("d five")) squareToMove = "d5";
+                            if(partial.includes("d six")) squareToMove = "d6";
+                            if(partial.includes("d seven")) squareToMove = "d7";
+                            if(partial.includes("d eight")) squareToMove = "d8";
+
+                            if(partial.includes("e one") || partial.includes("he won")) squareToMove = "e1";
+                            if(partial.includes("e two") || partial.includes("e too")) squareToMove = "e2";
+                            if(partial.includes("e three")) squareToMove = "e3";
+                            if(partial.includes("e four")) squareToMove = "e4";
+                            if(partial.includes("e five")) squareToMove = "e5";
+                            if(partial.includes("e six")) squareToMove = "e6";
+                            if(partial.includes("e seven")) squareToMove = "e7";
+                            if(partial.includes("e eight") || partial.includes("he ate")) squareToMove = "e8";
+
+                            if(partial.includes("f one")) squareToMove = "f1";
+                            if(partial.includes("f two")) squareToMove = "f2";
+                            if(partial.includes("f three")) squareToMove = "f3";
+                            if(partial.includes("f four")) squareToMove = "f4";
+                            if(partial.includes("f five")) squareToMove = "f5";
+                            if(partial.includes("f six")) squareToMove = "f6";
+                            if(partial.includes("f seven")) squareToMove = "f7";
+                            if(partial.includes("f eight")) squareToMove = "f8";
+
+                            if(partial.includes("g one")) squareToMove = "g1";
+                            if(partial.includes("g two")) squareToMove = "g2";
+                            if(partial.includes("g three")) squareToMove = "g3";
+                            if(partial.includes("g four")) squareToMove = "g4";
+                            if(partial.includes("g five")) squareToMove = "g5";
+                            if(partial.includes("g six")) squareToMove = "g6";
+                            if(partial.includes("g seven")) squareToMove = "g7";
+                            if(partial.includes("g eight")) squareToMove = "g8";
+
+                            if(partial.includes("h one")) squareToMove = "h1";
+                            if(partial.includes("h two") || partial.includes("h too")) squareToMove = "h2";
+                            if(partial.includes("h three")) squareToMove = "h3";
+                            if(partial.includes("h four")) squareToMove = "h4";
+                            if(partial.includes("h five")) squareToMove = "h5";
+                            if(partial.includes("h six")) squareToMove = "h6";
+                            if(partial.includes("h seven")) squareToMove = "h7";
+                            if(partial.includes("h eight")) squareToMove = "h8";
+
+                            console.log("Piece: " + pieceToMove);
+                            console.log("Square: " + squareToMove);
                             currentCell.innerHTML = parseResponse(data);
                             messageHistory += parseResponse(data);
                             console.log(messageHistory);
