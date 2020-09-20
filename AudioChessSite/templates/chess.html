@@ -136,17 +136,26 @@
 
                     recorder.stopRecording(function() {
                         let blob = recorder.getBlob();
-                        invokeSaveAsDialog(blob);
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/1be94588-c125-4a3c-b119-4e202d2b1d50/v1/recognize", true);
+                        xhr.setRequestHeader('Content-Type', 'audio/webm');
+                        xhr.send(JSON.stringify({
+                            "apikey": "UOyzmj4IIjNnT2JIddHVX1viMNLRxSRPAkkn9K2238pq",
+                            "data-binary": blob
+                        }));
+
+                        // invokeSaveAsDialog(blob);
                         
-                        var csrfToken = '{{ csrf_token }}';
-                        console.log(csrfToken);
-                        let fd = new FormData;
-                        fd.append("audioRecording", blob);
-                        fd.append("csrfmiddlewaretoken", csrfToken);
-                        fetch("/upload", {method:"POST", body:fd})
-                        .then(response => response.ok)
-                        .then(res => console.log(res))
-                        .catch(err => console.error(err));
+                        // var csrfToken = '{{ csrf_token }}';
+                        // console.log(csrfToken);
+                        // let fd = new FormData;
+                        // fd.append("audioRecording", blob);
+                        // fd.append("csrfmiddlewaretoken", csrfToken);
+                        // fetch("/upload", {method:"POST", body:fd})
+                        // .then(response => response.ok)
+                        // .then(res => console.log(res))
+                        // .catch(err => console.error(err));
                     });
                 });
             </script>
